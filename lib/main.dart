@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 const background = Color(0xFFFCFEFB);
@@ -8,7 +7,7 @@ const darkRed = Color(0xFF963C3C);
 
 void main() {
   runApp(const MyApp());
-} 
+}
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -25,24 +24,19 @@ class MyApp extends StatelessWidget {
           bodyMedium: TextStyle(color: Colors.black, fontSize: 14),
         ),
       ),
-      
+
       home: const RegistrationPage(),
     );
   }
 }
 
-
 class PageLayout extends StatelessWidget {
   final Widget child;
   const PageLayout({super.key, required this.child});
 
-  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: Navigator.of(context).canPop()
-          ? AppBar(backgroundColor: background, toolbarHeight: 40)
-          : null,
       body: SafeArea(
         child: Center(
           child: SizedBox(
@@ -59,13 +53,16 @@ class PageLayout extends StatelessWidget {
   }
 }
 
-Widget inputField({String hint = '', bool password = false, bool number = false}) {
+Widget inputField({
+  String hint = '',
+  bool password = false,
+  bool number = false,
+}) {
   return SizedBox(
     height: 36,
     child: TextField(
       obscureText: password,
       keyboardType: number ? TextInputType.number : TextInputType.text,
-      inputFormatters: number ? [FilteringTextInputFormatter.digitsOnly] : null,
       style: const TextStyle(fontSize: 13),
       decoration: InputDecoration(
         hintText: hint,
@@ -86,11 +83,11 @@ Widget inputField({String hint = '', bool password = false, bool number = false}
   );
 }
 
-Widget redButton(String text, {bool play = false, VoidCallback? onPressed}) {
+Widget redButton(String text, {bool play = false}) {
   return SizedBox(
     height: 34,
     child: ElevatedButton(
-      onPressed: onPressed,
+      onPressed: null,
       style: ElevatedButton.styleFrom(
         backgroundColor: red,
         foregroundColor: Colors.white,
@@ -139,9 +136,7 @@ class RegistrationPage extends StatelessWidget {
                 const SizedBox(height: 20),
                 inputField(hint: 'Password', password: true),
                 const SizedBox(height: 26),
-                redButton('Register', onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => const LoginPage()));
-                }),
+                redButton('Register'),
               ],
             ),
           ),
@@ -174,9 +169,7 @@ class LoginPage extends StatelessWidget {
                 const SizedBox(height: 20),
                 inputField(hint: 'Password', password: true),
                 const SizedBox(height: 26),
-                redButton('Login', onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => const MainPage()));
-                }),
+                redButton('Login'),
               ],
             ),
           ),
@@ -199,28 +192,19 @@ class MainPage extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              TextButton(
-                onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => const StatisticsPage()));
-                },
-                style: ButtonStyle(
-                  foregroundColor: WidgetStatePropertyAll(Colors.black),
-                ),
-                child: Text('Report'),
-              ),
+              const Text('Report'),
               const SizedBox(width: 10),
               Container(
                 width: 28,
                 height: 28,
-                decoration: const BoxDecoration(color: red, shape: BoxShape.circle),
-                child: IconButton(
-                  onPressed: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => const SettingsPage()));
-                  },
+                decoration: const BoxDecoration(
+                  color: red,
+                  shape: BoxShape.circle,
+                ),
+                child: const Icon(
+                  Icons.settings_outlined,
                   color: Colors.white,
-                  padding: EdgeInsets.zero,
-                  disabledColor: Colors.white,
-                  icon: Icon(Icons.settings_outlined, size: 19),
+                  size: 19,
                 ),
               ),
             ],
@@ -257,9 +241,15 @@ class SettingsPage extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           const SizedBox(height: 48),
-          const Text('Settings', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500)),
+          const Text(
+            'Settings',
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+          ),
           const SizedBox(height: 110),
-          const Text('Timer (minutes)', style: TextStyle(fontWeight: FontWeight.w500)),
+          const Text(
+            'Timer (minutes)',
+            style: TextStyle(fontWeight: FontWeight.w500),
+          ),
           const SizedBox(height: 32),
           settingsField('Work time'),
           const SizedBox(height: 28),
@@ -267,7 +257,10 @@ class SettingsPage extends StatelessWidget {
           const SizedBox(height: 28),
           settingsField('Long break'),
           const SizedBox(height: 96),
-          const Text('Intervals', style: TextStyle(fontWeight: FontWeight.w500)),
+          const Text(
+            'Intervals',
+            style: TextStyle(fontWeight: FontWeight.w500),
+          ),
           const SizedBox(height: 26),
           settingsField('Intervals before long break'),
           const SizedBox(height: 92),
@@ -292,16 +285,22 @@ Widget statisticCard(String title, String value) {
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text(title, textAlign: TextAlign.center, style: const TextStyle(fontSize: 11)),
+          Text(
+            title,
+            textAlign: TextAlign.center,
+            style: const TextStyle(fontSize: 11),
+          ),
           const SizedBox(height: 7),
-          Text(value, style: const TextStyle(fontSize: 17, fontWeight: FontWeight.w500)),
+          Text(
+            value,
+            style: const TextStyle(fontSize: 17, fontWeight: FontWeight.w500),
+          ),
         ],
       ),
     ),
   );
 }
 
-// Столбики графика — обычные Container, высота задана вручную.
 Widget chartBar(String day, double height) {
   return Expanded(
     child: Column(
@@ -330,8 +329,16 @@ Widget insightRow(String label, String value) {
     ),
     child: Row(
       children: [
-        Expanded(child: Text(label, style: const TextStyle(fontSize: 11, color: darkRed))),
-        SizedBox(width: 155, child: Text(value, style: const TextStyle(fontSize: 12))),
+        Expanded(
+          child: Text(
+            label,
+            style: const TextStyle(fontSize: 11, color: darkRed),
+          ),
+        ),
+        SizedBox(
+          width: 155,
+          child: Text(value, style: const TextStyle(fontSize: 12)),
+        ),
       ],
     ),
   );
@@ -347,18 +354,29 @@ class StatisticsPage extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           const SizedBox(height: 48),
-          const Text('Statistics', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500)),
+          const Text(
+            'Statistics',
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+          ),
           const SizedBox(height: 26),
-          const Text('Track your progress to optimize your workflow',
-              style: TextStyle(fontSize: 12, color: darkRed)),
+          const Text(
+            'Track your progress to optimize your workflow',
+            style: TextStyle(fontSize: 12, color: darkRed),
+          ),
           const SizedBox(height: 40),
           const Row(
             children: [
-              IconButton(onPressed: null, disabledColor: Colors.black,
-                  icon: Icon(Icons.arrow_left, size: 18)),
+              IconButton(
+                onPressed: null,
+                disabledColor: Colors.black,
+                icon: Icon(Icons.arrow_left, size: 18),
+              ),
               Text('This week'),
-              IconButton(onPressed: null, disabledColor: Colors.black,
-                  icon: Icon(Icons.arrow_right, size: 18)),
+              IconButton(
+                onPressed: null,
+                disabledColor: Colors.black,
+                icon: Icon(Icons.arrow_right, size: 18),
+              ),
             ],
           ),
           Row(
@@ -371,9 +389,15 @@ class StatisticsPage extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 34),
-          const Text('Weekly Overview', style: TextStyle(fontWeight: FontWeight.w500)),
+          const Text(
+            'Weekly Overview',
+            style: TextStyle(fontWeight: FontWeight.w500),
+          ),
           const SizedBox(height: 20),
-          const Text('Completed intervals', style: TextStyle(fontSize: 12, color: darkRed)),
+          const Text(
+            'Completed intervals',
+            style: TextStyle(fontSize: 12, color: darkRed),
+          ),
           const SizedBox(height: 38),
           SizedBox(
             height: 200,
@@ -402,7 +426,3 @@ class StatisticsPage extends StatelessWidget {
     );
   }
 }
-
-
-
-

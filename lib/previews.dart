@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widget_previews.dart';
 import 'main.dart';
 
-// Эти функции показывают страницы внутри VS Code.
-// Сами страницы по-прежнему редактируются в main.dart.
 @Preview(name: '1. Registration', size: Size(375, 812))
 Widget registrationPreview() => previewPage(const RegistrationPage());
 
