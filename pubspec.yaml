@@ -1,0 +1,23 @@
+name: tomato_flutter
+description: Simple static Flutter screens for learning.
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.9.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_svg: ^2.3.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/group_2.svg
+    - assets/tomato.svg
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
